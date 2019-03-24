@@ -57,9 +57,7 @@ get_period <- function(start_period, end_period, frequency) {
     frequency == "weekly" ~ get_weekly_dates(start_period, end_period),
     frequency == "monthly" ~ get_monthly_dates(start_period, end_period)
   )
-  
-  
-  
+  return(dates)  
 }
 
 get_modified_api <- function(period, original_api) {
