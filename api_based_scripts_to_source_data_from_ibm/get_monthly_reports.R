@@ -1,6 +1,6 @@
 library(dplyr)
 library(readr)
-monthly_API_key <- "https://de.digitalanalytics.ibmcloud.com/cxa/da/explore/public/reports?clientId=50630000&username=Rachit.Kinger&userAuthKey=e852b08e-31f2-4b23-88e7-74687f4c6092&language=en_US&reportId=1359167&rType=FLAT&viewID=adhoc&period_a=M20170101&format=CSV&fileName=50630000_Monthly-_Top_Line_Metrics_by_most_used_dimensions_-_Newsbrands_2-12-2019-0620.csv"
+monthly_API_key <- ""
 # note that currently all sheets are not being dlownload for the same default period.
 # the api-key has the default date built into it. see if you can change it
 

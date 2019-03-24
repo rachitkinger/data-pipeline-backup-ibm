@@ -1,5 +1,5 @@
 
-daily_API_key <- "https://de.digitalanalytics.ibmcloud.com/cxa/da/explore/public/reports?clientId=50630000&username=Rachit.Kinger&userAuthKey=e852b08e-31f2-4b23-88e7-74687f4c6092&language=en_US&reportId=1359265&rType=FLAT&viewID=adhoc&period_a=D20190211&format=CSV&fileName=50630000_Daily_Top_Line_Metrics_by_most_used_dimensions_-_Newsbrands_2-12-2019-0652.csv"
+daily_API_key <- ""
 
 library(dplyr)
 library(readr)
