@@ -1,11 +1,14 @@
 # refer to scripts in folder 'api_based_scripts...' to
 # build each of the below functions based on frequency of report
 
-library(googlesheets)
-library(readr)
-library(dplyr)
-library(lubridate)
-library(stringr)
+load_packages <- function() {
+  library(googlesheets)
+  library(readr)
+  library(dplyr)
+  library(lubridate)
+  library(stringr)
+}
+suppressPackageStartupMessages(load_packages())
 
 # download report details using googlesheets via OAuth authentication
 gs_auth()
@@ -17,10 +20,48 @@ report_details <- gs_read(ss, ws = "report_details")
 # ss_backup <- gs_key("1lAfyijkUGc_cvC01VhgMHTwsOxWMQyoavujcHi27SXE")
 # report_details <- gs_read(ss_backup, ws = "report_details")
 
+get_daily_dates <- function(start_period, end_period) {
+  diff <- interval(start_period, end_period)
+  diff <- as.period(diff, unit = "day")
+  dates <- start_period + 0:diff$day
+  dates <- gsub("-", "", dates)
+  dates <- paste0("D", dates)
+  return(dates)
+}
+
+get_weekly_dates <- function(start_period, end_period) {
+  diff <- interval(start_period, end_period)
+  diff <- as.period(diff, unit = "day")
+  num_of_weeks <- diff$day%/%7
+  dates <- start_period + weeks(0:num_of_weeks)
+  # IBM gives incomplete weekly data if year end falls in the middle of the week
+  # hence new year starts have to have their own weeks
+  dates <- append(dates, c(ymd("2018-01-01"), ymd("2019-01-01")))
+  dates <- gsub("-", "", dates)
+  dates <- paste0("W", dates)
+  return(dates)
+}
+
+get_monthly_dates <- function(start_period, end_period) {
+  dates <- start_period %m+% months(0:24)
+  dates <- gsub("-", "", dates)
+  dates <- paste0("M", dates)
+  return(dates)
+}
+
 get_period <- function(start_period, end_period, frequency) {
   # returns vector of all periods that can be inserted into api link
   
+  dates <- case_when(
+    frequency == "daily" ~ get_daily_dates(start_period, end_period),
+    frequency == "weekly" ~ get_weekly_dates(start_period, end_period),
+    frequency == "monthly" ~ get_monthly_dates(start_period, end_period)
+  )
+  
+  
+  
 }
+
 get_modified_api <- function(period, original_api) {
   # return api valid for that period
 }
