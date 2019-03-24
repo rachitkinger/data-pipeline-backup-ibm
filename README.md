@@ -12,6 +12,7 @@ The script was run on a Google VM instance using the R version 3.5.3. with the f
 2. dplyr  
 3. lubridate  
 4. stringr  
+5. googlesheets
 
 The data was downloaded onto a Google Cloud Storage bucket gs://ibm_da_backup  
 
