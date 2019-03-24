@@ -1,6 +1,25 @@
+# refer to scripts in folder 'api_based_scripts...' to
+# build each of the below functions based on frequency of report
+
+library(googlesheets)
+library(readr)
+library(dplyr)
+library(lubridate)
+library(stringr)
+
+# download report details using googlesheets via OAuth authentication
+gs_auth()
+ss <- gs_title("Reports identified for back-up")
+report_details <- gs_read(ss, ws = "report_details")
+# in case above command fails 
+# becuase someone has changed the name of the sheet
+# use the below back-up commands which works with document key
+# ss_backup <- gs_key("1lAfyijkUGc_cvC01VhgMHTwsOxWMQyoavujcHi27SXE")
+# report_details <- gs_read(ss_backup, ws = "report_details")
 
 get_period <- function(start_period, end_period, frequency) {
   # returns vector of all periods that can be inserted into api link
+  
 }
 get_modified_api <- function(period, original_api) {
   # return api valid for that period
@@ -22,7 +41,7 @@ get_clean_report <- fuction(raw_report, frequency, unit_of_analysis) {
     # report unit of analysis (pageviews, unique visitors, etc.)
     # report name as per google sheet
 }
-save_report <- function(clean_report, report_name, period) {
+save_report <- function(clean_report, report_name, unit_of_analysis, frequency, period) {
   # saves report in csv format
 }
 
@@ -40,6 +59,6 @@ for(i in 1:nrow(report_details)) {
     modified_api <- get_modified_api(period, original_api)
     raw_report <- get_raw_report(modified_api)
     clean_report <- get_clean_report(raw_report, frequency, unit_of_analysis)
-    save_report(clean_report, report_name, period)
+    save_report(clean_report, report_name, unit_of_analysis, frequency, period)
   }
 }
